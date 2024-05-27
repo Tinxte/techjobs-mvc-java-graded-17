@@ -10,9 +10,7 @@
 
   <h1 th:text="${#strings.capitalizeWords(title)}"></h1>
 
-<!--<th:block th:each="job : ${jobs}">-->
   <table class="job-listing" th:each="job : ${jobs}">
-<!--    <tbody>-->
     <tr>
       <td>ID</td>
       <td th:text="${job.getId()}"></td>
@@ -37,10 +35,7 @@
       <td>Skill</td>
       <td th:text="${job.coreCompetency.getValue()}"></td>
     </tr>
-<!--    </tbody>-->
   </table>
-
-<!--</th:block>-->
 
 </div>
 
