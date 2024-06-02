@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import static org.launchcode.techjobsmvc.controllers.ListController.columnChoices;
 
@@ -34,17 +35,22 @@ public class SearchController {
 
         ArrayList<Job> jobs;
 
-        if (searchType.equals("all")){
+        if (searchType.equals("all") && searchTerm.equals("")) {
             jobs = JobData.findAll();
             model.addAttribute("title", "All Jobs");
+        } else if (searchType.equals("all")) {
+            jobs = JobData.findByColumnAndValue("all", searchTerm);
+
+            model.addAttribute("jobs", jobs);
+            model.addAttribute("columns", columnChoices);
         } else {
             jobs = JobData.findByColumnAndValue(searchType, searchTerm);
-            model.addAttribute("title", "Jobs with " + ListController.columnChoices.get(searchType) + ": " + searchTerm);
+            model.addAttribute("title", "Jobs with " + columnChoices.get(searchType) + ": " + searchTerm);
         }
         model.addAttribute("jobs", jobs);
-        model.addAttribute("columns", ListController.columnChoices);
+        model.addAttribute("columns", columnChoices);
 
-        return "search/results";
+        return "search";
     }
 
 }
